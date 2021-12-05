@@ -9,16 +9,14 @@ def problem_2(points):
 
 
 def find_overlaps(lines):
-    overlap = set()
+    intersections = set()
     seen = set()
 
-    for x, line_a in enumerate(lines):
-        for y, lines_b in enumerate(lines):
-            pair = tuple(sorted((x,y)))
-            if x != y and pair not in seen:
-                overlap = overlap.union(set.intersection(line_a, lines_b))
-                seen.add(pair)
-    return overlap
+    for line in lines:
+        intersections = intersections.union(seen.intersection(line))
+        seen = seen.union(line)
+
+    return intersections
 
 
 def extrapolate_line(start, end):
@@ -32,6 +30,7 @@ def extrapolate_line(start, end):
 
 def is_vertical(start, end):
     return start[0] == end[0]
+
 
 def is_straight(start, end):
     return start[0] == end[0] or start[1] == end[1]
